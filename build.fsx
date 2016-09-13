@@ -120,8 +120,7 @@ Target "CleanTests" <| fun _ ->
     DeleteDir testOutput
 //--------------------------------------------------------------------------------
 // Run tests
-
-open XUnit2Helper
+open Fake.Testing
 Target "RunTests" <| fun _ ->  
     let xunitTestAssemblies = !! "src/**/bin/Release/*.Tests.dll" 
 
@@ -130,7 +129,7 @@ Target "RunTests" <| fun _ ->
     let xunitToolPath = findToolInSubPath "xunit.console.exe" "src/packages/xunit.runner.console*/tools"
     printfn "Using XUnit runner: %s" xunitToolPath
     xUnit2
-        (fun p -> { p with OutputDir = testOutput; ToolPath = xunitToolPath })
+        (fun p -> { p with XmlOutputPath = Some (testOutput @@ "Xunit.xml"); HtmlOutputPath = Some (testOutput @@ "Xunit.html"); ToolPath = xunitToolPath; TimeOut = System.TimeSpan.FromMinutes 30.0; Parallel = ParallelMode.NoParallelization; NoAppDomain = true; ForceTeamCity = true; })
         xunitTestAssemblies
 
 //--------------------------------------------------------------------------------
