@@ -89,7 +89,7 @@ Target "AssemblyInfo" <| fun _ ->
 Target "Build" <| fun _ ->
 
     !! slnFile
-    |> MSBuildRelease "" "Rebuild" [("Configuration","Release")]
+    |> MSBuild "" "Rebuild" [("Configuration","Release")]
     |> ignore
 
 
