@@ -126,7 +126,7 @@ Target "RunTests" <| fun _ ->
 
     mkdir testOutput
 
-    let xunitToolPath = findToolInSubPath "xunit.console.exe" "src/packages/xunit.runner.console*/tools"
+    let xunitToolPath = findToolInSubPath "xunit.console.exe" "src/packages/FAKE/xunit.runner.console*/tools"
     printfn "Using XUnit runner: %s" xunitToolPath
     xUnit2
         (fun p -> { p with XmlOutputPath = Some (testOutput @@ "Xunit.xml"); HtmlOutputPath = Some (testOutput @@ "Xunit.html"); ToolPath = xunitToolPath; TimeOut = System.TimeSpan.FromMinutes 30.0; Parallel = ParallelMode.NoParallelization; NoAppDomain = true; ForceTeamCity = true; })
