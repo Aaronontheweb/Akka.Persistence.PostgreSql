@@ -52,7 +52,7 @@ let nugetDir = binDir @@ "nuget"
 let workingDir = binDir @@ "build"
 let libDir = workingDir @@ @"lib\net45\"
 let nugetExe = FullName @"src" @@ ".nuget" @@ "NuGet.exe"
-let slnFile = "src/Akka.Persistence.PostgreSql.sln"
+let slnFile = "./src/Akka.Persistence.PostgreSql.sln"
 
 open Fake.RestorePackageHelper
 Target "RestorePackages" (fun _ -> 
@@ -87,10 +87,8 @@ Target "AssemblyInfo" <| fun _ ->
 // Build the solution
 
 Target "Build" <| fun _ ->
-
-    !! slnFile
-    |> MSBuildRelease "" "Rebuild"
-    |> ignore
+    MSBuildRelease "" "Rebuild" [slnFile;]
+    |> Log "AppBuild-Output: "
 
 
 //--------------------------------------------------------------------------------
